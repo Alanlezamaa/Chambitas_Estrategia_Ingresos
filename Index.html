@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chambitas · Estrategia de ingresos y marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --tinta:#15121f; --tinta-soft:#221c33; --paper:#f4f2fb; --card:#ffffff;
+    --ink:#241f33; --ink-dim:#5b5570; --line:rgba(36,31,51,0.12);
+    --violeta:#5b3df5; --violeta-deep:#3a1fa8; --oro:#f0a430; --exito:#1aa769; --cian:#1fa8d6; --rojo:#d3494a;
+    --radius:18px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Space Grotesk',system-ui,sans-serif;letter-spacing:-0.01em;color:var(--tinta);margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px;}
+  a{color:inherit;}
+
+  .nav{position:sticky;top:0;z-index:50;background:rgba(244,242,251,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex;align-items:center;gap:18px;padding:12px 24px;max-width:980px;margin:0 auto;}
+  .nav-brand{font-family:'Space Grotesk';font-weight:700;font-size:15px;white-space:nowrap;color:var(--violeta-deep);}
+  .nav-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;}
+  .nav-chips::-webkit-scrollbar{display:none;}
+  .nav-chips a{flex:0 0 auto;font-size:12.5px;font-weight:600;padding:6px 11px;border-radius:99px;background:var(--card);border:1px solid var(--line);white-space:nowrap;text-decoration:none;color:var(--ink-dim);}
+  .nav-chips a:hover{border-color:var(--violeta);color:var(--violeta-deep);}
+
+  .hero{background:linear-gradient(155deg,var(--violeta) 0%,var(--violeta-deep) 70%,var(--tinta) 100%);color:#fff;padding:56px 0 44px;}
+  .eyebrow{font-size:12.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.75);}
+  .hero h1{color:#fff;font-size:clamp(26px,4.2vw,40px);line-height:1.14;margin:12px 0 16px;max-width:700px;}
+  .hero p.lead{font-size:16px;color:rgba(255,255,255,0.88);max-width:620px;margin:0 0 22px;}
+  .caveat{display:flex;gap:10px;align-items:flex-start;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:14px;padding:12px 16px;font-size:13.5px;color:rgba(255,255,255,0.92);max-width:700px;}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;}
+  .hstat{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);border-radius:14px;padding:14px 16px;}
+  .hstat .num{font-family:'Space Grotesk';font-weight:700;font-size:22px;}
+  .hstat .lbl{font-size:12px;color:rgba(255,255,255,0.78);margin-top:3px;}
+
+  .section{padding:54px 0;border-bottom:1px solid var(--line);}
+  .section:last-of-type{border-bottom:none;}
+  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;}
+  .section-num{font-family:'IBM Plex Mono';font-size:13px;font-weight:600;color:var(--violeta);}
+  .section h2{font-size:24px;}
+  .section-dek{color:var(--ink-dim);font-size:15px;max-width:640px;margin:6px 0 28px;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media (max-width:760px){ .grid-2,.grid-3,.hero-stats{grid-template-columns:1fr;} }
+
+  .control{margin-bottom:18px;}
+  .control label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:6px;}
+  .control label .val{font-family:'IBM Plex Mono';color:var(--violeta-deep);font-weight:600;}
+  input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:99px;background:var(--line);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--violeta);border:3px solid #fff;box-shadow:0 0 0 1px var(--line);cursor:pointer;}
+  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--violeta);border:3px solid #fff;cursor:pointer;}
+
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;}
+  @media (max-width:760px){ .calc-grid{grid-template-columns:1fr;} }
+  .outputs{display:flex;flex-direction:column;gap:10px;}
+  .out-row{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:8px;}
+  .out-row .k{font-size:13px;color:var(--ink-dim);}
+  .out-row .v{font-family:'IBM Plex Mono';font-weight:600;font-size:15px;}
+  .out-row.total{border-bottom:none;border-top:1px solid var(--line);padding-top:10px;margin-top:2px;}
+  .out-row.total .v{font-size:18px;color:var(--violeta-deep);}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-dim);padding:8px 10px;border-bottom:1px solid var(--line);}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tr.highlight td{background:rgba(91,61,245,0.06);font-weight:600;}
+  table.scroll-x{display:block;overflow-x:auto;}
+
+  .cost-tag{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;}
+  .cost-tag.low{background:rgba(26,167,105,0.14);color:var(--exito);}
+  .cost-tag.med{background:rgba(240,164,48,0.16);color:#9a6310;}
+  .cost-tag.high{background:rgba(211,73,74,0.14);color:var(--rojo);}
+
+  .phase-card{position:relative;}
+  .phase-badge{position:absolute;top:-10px;right:16px;background:var(--violeta);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;}
+  .phase-card h3{font-size:15px;margin-bottom:4px;}
+  .phase-card .when{font-size:11.5px;color:var(--ink-dim);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px;}
+  .phase-card ul{margin:0;padding-left:18px;font-size:13.5px;}
+  .phase-card li{margin-bottom:7px;}
+
+  .note{border-radius:14px;padding:16px 18px;font-size:13.5px;}
+  .note h4{font-size:13.5px;margin-bottom:8px;}
+  .note ul{margin:0;padding-left:18px;}
+  .note li{margin-bottom:6px;}
+  .note.green{background:rgba(26,167,105,0.08);border:1px solid rgba(26,167,105,0.25);} .note.green h4{color:var(--exito);}
+  .note.blue{background:rgba(31,168,214,0.08);border:1px solid rgba(31,168,214,0.25);} .note.blue h4{color:var(--cian);}
+  .note.amber{background:rgba(240,164,48,0.1);border:1px solid rgba(240,164,48,0.3);} .note.amber h4{color:#9a6310;}
+  .note.red{background:rgba(211,73,74,0.08);border:1px solid rgba(211,73,74,0.25);} .note.red h4{color:var(--rojo);}
+  .note.violet{background:rgba(91,61,245,0.07);border:1px solid rgba(91,61,245,0.3);} .note.violet h4{color:var(--violeta-deep);}
+  .notes-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:680px){.notes-grid{grid-template-columns:1fr;}}
+
+  .steps{display:flex;flex-direction:column;gap:0;}
+  .step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--line);}
+  .step:last-child{border-bottom:none;}
+  .step-num{font-family:'Space Grotesk';font-weight:700;color:var(--violeta);font-size:14px;flex:0 0 30px;}
+  .step-when{font-size:11px;color:var(--ink-dim);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;}
+  .step h4{font-size:15px;margin-bottom:4px;}
+  .step p{margin:0;font-size:13.5px;color:var(--ink-dim);}
+
+  .checklist{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+  .checklist .ci{display:flex;gap:10px;align-items:flex-start;font-size:14px;}
+  .checklist .ci .box{flex:0 0 18px;height:18px;width:18px;border:2px solid var(--violeta);border-radius:5px;margin-top:2px;}
+
+  footer{padding:32px 0 60px;text-align:center;}
+  footer p{font-size:12.5px;color:var(--ink-dim);max-width:560px;margin:0 auto;}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Chambitas · Ingresos &amp; Marketing</div>
+    <div class="nav-chips">
+      <a href="#ingresos">01 Ingresos</a>
+      <a href="#simulador">02 Simulador</a>
+      <a href="#saldopendiente">03 Saldo en efectivo</a>
+      <a href="#marketing">04 Marketing</a>
+      <a href="#roadmap">05 Roadmap</a>
+      <a href="#generacional">06 Puente generacional</a>
+      <a href="#ferreterias">07 Ferreterías</a>
+      <a href="#verificacion">08 Verificación</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Estrategia de ingresos y marketing</div>
+    <h1>Cómo cobrar sin matar la adopción, y cómo ganar terreno en un mercado sin competencia digital</h1>
+    <p class="lead">Construido sobre el análisis de viabilidad anterior. Aquí está el modelo de ingresos por fases, el mecanismo de saldo pendiente en efectivo (al estilo Uber/Didi), el plan de marketing para los primeros meses, y mi opinión sobre tus tres propuestas: el puente generacional, las alianzas con ferreterías y los documentos de verificación.</p>
+    <div class="caveat">⚠️ Los montos (comisiones, cuotas, límites de efectivo) son puntos de partida razonables para un lanzamiento en una ciudad media de México — ajústalos en los simuladores de abajo y vuelve a correr los números antes de fijarlos por contrato o en el código.</div>
+    <div class="hero-stats">
+      <div class="hstat"><div class="num">15% / 10%</div><div class="lbl">comisión sugerida: plan gratis vs. plan con suscripción</div></div>
+      <div class="hstat"><div class="num">$300 MXN</div><div class="lbl">saldo máx. en efectivo antes de pedir liquidar (ajustable)</div></div>
+      <div class="hstat"><div class="num">$<span id="heroRevenue">33,400</span></div><div class="lbl">ingreso mensual estimado con 80 chamberos activos (ajustable abajo)</div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="section" id="ingresos">
+    <div class="section-head"><span class="section-num">01</span><h2>Modelo de ingresos por fases</h2></div>
+    <p class="section-dek">La regla general de los marketplaces de dos lados: no le metas toda la monetización el día 1. Cada fase agrega una capa sobre la anterior, solo cuando ya hay tráfico que la sostenga.</p>
+    <div class="grid-3">
+      <div class="card phase-card"><span class="phase-badge">Empieza aquí</span>
+        <div class="when">Fase 1 · Mes 1–3</div>
+        <h3>Arranque</h3>
+        <ul>
+          <li>Comisión simple por servicio completado: <b>10–15%</b>, deliberadamente baja para no espantar a los primeros chamberos.</li>
+          <li>Mecanismo de saldo pendiente en efectivo activo desde el día 1 (sección 03) — protege la comisión sin que el cliente tenga que pagar dentro de la app.</li>
+          <li>Sin suscripción todavía: el costo de entrada para un chambero nuevo debe ser cero.</li>
+        </ul>
+      </div>
+      <div class="card phase-card">
+        <div class="when">Fase 2 · Mes 4–9</div>
+        <h3>Tracción</h3>
+        <ul>
+          <li><b>Plan Pro</b> opcional: suscripción modesta ($99–150 MXN/mes) a cambio de comisión más baja, prioridad en el muro de chambas e insignia "Pro".</li>
+          <li>Visibilidad puntual ("destaca tu perfil 48h") para quien no quiere suscripción mensual.</li>
+          <li>Arranca el programa de alianzas con ferreterías (sección 07) — todavía como trueque, sin comisión.</li>
+        </ul>
+      </div>
+      <div class="card phase-card">
+        <div class="when">Fase 3 · Mes 10+</div>
+        <h3>Escala</h3>
+        <ul>
+          <li>Garantía/seguro opcional pagado por el cliente (% extra) — nueva línea de ingreso y refuerzo de confianza a la vez.</li>
+          <li>Publicidad local de tiendas de materiales/refacciones dentro de la app.</li>
+          <li>Si el volumen vía ferreterías ya es alto, negociar una comisión de afiliado pequeña en vez de solo trueque.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="simulador">
+    <div class="section-head"><span class="section-num">02</span><h2>Simulador de ingresos combinado</h2></div>
+    <p class="section-dek">Comisión + suscripción Plan Pro funcionando juntas. Muévele para ver cuánto suma el plan de suscripción sobre cobrar solo comisión.</p>
+    <div class="card">
+      <div class="calc-grid">
+        <div>
+          <div class="control"><label>Chamberos activos al mes <span class="val"><span id="vChamb2">80</span></span></label><input type="range" id="chamberos2" min="10" max="400" step="10" value="80"></div>
+          <div class="control"><label>% de chamberos en Plan Pro <span class="val"><span id="vPctPro">20</span>%</span></label><input type="range" id="pctPro" min="0" max="100" step="5" value="20"></div>
+          <div class="control"><label>Cuota mensual Plan Pro <span class="val">$<span id="vCuotaPro">129</span></span></label><input type="range" id="cuotaPro" min="49" max="300" step="10" value="129"></div>
+          <div class="control"><label>Comisión Plan Gratis <span class="val"><span id="vComFree">15</span>%</span></label><input type="range" id="comisionFree" min="5" max="25" step="1" value="15"></div>
+          <div class="control"><label>Comisión Plan Pro <span class="val"><span id="vComPro">10</span>%</span></label><input type="range" id="comisionPro" min="0" max="20" step="1" value="10"></div>
+          <div class="control"><label>Chambas por chambero / mes <span class="val"><span id="vChambasPer2">8</span></span></label><input type="range" id="chambasPer2" min="1" max="20" step="1" value="8"></div>
+          <div class="control"><label>Ticket promedio <span class="val">$<span id="vTicket2">350</span></span></label><input type="range" id="ticket2" min="100" max="1000" step="10" value="350"></div>
+        </div>
+        <div class="outputs">
+          <div class="out-row"><span class="k">Chamberos en Plan Gratis / Plan Pro</span><span class="v" id="outSplit">—</span></div>
+          <div class="out-row"><span class="k">Ingreso por comisión (Plan Gratis)</span><span class="v" id="outComFree">—</span></div>
+          <div class="out-row"><span class="k">Ingreso por comisión (Plan Pro)</span><span class="v" id="outComPro">—</span></div>
+          <div class="out-row"><span class="k">Ingreso por suscripciones Pro</span><span class="v" id="outSub">—</span></div>
+          <div class="out-row total"><span class="k">Ingreso total mensual</span><span class="v" id="outTotalSim">—</span></div>
+          <div class="out-row"><span class="k">Si todos pagaran solo comisión (sin Plan Pro)</span><span class="v" id="outBaseline">—</span></div>
+          <div class="out-row"><span class="k">Diferencia que aporta el Plan Pro</span><span class="v" id="outUplift">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="saldopendiente">
+    <div class="section-head"><span class="section-num">03</span><h2>El mecanismo de saldo pendiente en efectivo</h2></div>
+    <p class="section-dek">Tu idea es exactamente como lo resuelven Uber y Didi: cuando el chambero cobra en efectivo, la comisión no llega sola a la app — así que la app le abre una cuenta por cobrar, y la bloquea si crece demasiado.</p>
+    <div class="card">
+      <div class="steps">
+        <div class="step"><div class="step-num">01</div><div><h4>Chamba pagada en efectivo</h4><p>El chambero completa el servicio y el cliente le paga directo en efectivo. La app registra el monto y calcula la comisión que se debe.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div><h4>Sube el saldo pendiente</h4><p>Ese monto de comisión se suma al "saldo pendiente" del chambero — visible para él en todo momento dentro de la app.</p></div></div>
+        <div class="step"><div class="step-num">03</div><div><h4>Se llega al límite</h4><p>Si el saldo pendiente toca el límite configurado, la app pausa nuevas solicitudes para ese chambero: "Liquida $X para seguir recibiendo chambas."</p></div></div>
+        <div class="step"><div class="step-num">04</div><div><h4>Liquida y vuelve a recibir chambas</h4><p>El chambero transfiere por SPEI, tarjeta u OXXO dentro de la app. El saldo se limpia y puede volver a recibir solicitudes de inmediato.</p></div></div>
+      </div>
+      <div class="calc-grid" style="margin-top:24px;">
+        <div>
+          <div class="control"><label>% de chambas pagadas en efectivo <span class="val"><span id="vPctEf">60</span>%</span></label><input type="range" id="pctEfectivo" min="0" max="100" step="5" value="60"></div>
+          <div class="control"><label>Ticket promedio <span class="val">$<span id="vTicket3">350</span></span></label><input type="range" id="ticket3" min="100" max="1000" step="10" value="350"></div>
+          <div class="control"><label>Comisión <span class="val"><span id="vCom3">15</span>%</span></label><input type="range" id="comision3" min="5" max="25" step="1" value="15"></div>
+          <div class="control"><label>Límite de saldo pendiente <span class="val">$<span id="vLimite">300</span></span></label><input type="range" id="limiteSaldo" min="100" max="1000" step="50" value="300"></div>
+        </div>
+        <div class="outputs">
+          <div class="out-row"><span class="k">Comisión generada por cada chamba en efectivo</span><span class="v" id="outComPorChamba">—</span></div>
+          <div class="out-row total"><span class="k">Chambas en efectivo antes del bloqueo</span><span class="v" id="outChambasBloqueo">—</span></div>
+          <p id="msgCash" style="font-size:13.5px;color:var(--ink-dim);margin:6px 0 0;"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="marketing">
+    <div class="section-head"><span class="section-num">04</span><h2>Estrategia de marketing: posicionamiento y segmentos</h2></div>
+    <p class="section-dek">No estás vendiendo una app. Estás vendiendo la confianza que antes solo te daba un vecino.</p>
+    <div class="card">
+      <p style="font-size:15px;margin-top:0;"><b>Posicionamiento:</b> "La confianza que antes solo te daba un vecino, ahora también la puedes buscar." Tres pilares de diferenciación frente a lo gratuito: identidad verificada, reseñas reales por chamba completada (no comentarios sueltos), y garantía/respaldo si algo sale mal.</p>
+      <div class="grid-2" style="margin-top:18px;">
+        <div class="note blue"><h4>Demanda · Clientes</h4>Dueños e inquilinos en Reynosa, 25–55 años, con smartphone, que valoran su tiempo y su seguridad. Suelen tener al menos una mala experiencia previa con un oficio contratado "a ciegas" — ese recuerdo es el gancho emocional del mensaje.</div>
+        <div class="note amber"><h4>Oferta · Chamberos</h4>Oficios independientes de rango de edad amplio; muchos de los más experimentados tienen 40+ años y posible brecha digital (tu observación es correcta — ver sección 06). Los motiva tener chamba más constante y cobrar de forma justa y puntual.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="roadmap">
+    <div class="section-head"><span class="section-num">05</span><h2>Roadmap de marketing y canales de adquisición</h2></div>
+    <p class="section-dek">Primero se siembra la oferta, después se activa la demanda — al revés casi nunca funciona en un marketplace de dos lados.</p>
+    <div class="card">
+      <div class="steps">
+        <div class="step"><div class="step-num">00</div><div><div class="step-when">Pre-lanzamiento</div><h4>Reclutamiento manual + lista de espera</h4><p>Encuestas y reclutamiento uno a uno de chamberos semilla (sección 08 del análisis anterior). Landing page con lista de correo y contenido mostrando el problema del "oficio a ciegas".</p></div></div>
+        <div class="step"><div class="step-num">01</div><div><div class="step-when">Lanzamiento soft · Mes 1–3</div><h4>Una zona, dos oficios</h4><p>Campaña de "fundadores" para chamberos y clientes; primeros servicios con comisión reducida; foco total en 1–2 colonias.</p></div></div>
+        <div class="step"><div class="step-num">02</div><div><div class="step-when">Crecimiento local · Mes 4–9</div><h4>Referidos + alianzas activas</h4><p>Se activan los referidos incentivados, las alianzas con ferreterías ya operan, contenido recurrente en redes con casos reales (antes/después de chambas).</p></div></div>
+        <div class="step"><div class="step-num">03</div><div><div class="step-when">Escala regional · Mes 10+</div><h4>Nuevas ciudades fronterizas</h4><p>Expansión a Río Bravo, Matamoros o Nuevo Laredo solo si las métricas del piloto en Reynosa son sanas.</p></div></div>
+      </div>
+      <table class="scroll-x" style="margin-top:24px;">
+        <thead><tr><th>Canal</th><th>Lado</th><th>Costo</th><th>Por qué funciona aquí</th></tr></thead>
+        <tbody>
+          <tr><td>Visita directa a talleres y grupos de oficios</td><td>Oferta</td><td><span class="cost-tag low">Bajo</span></td><td>Reclutamiento 1 a 1, indispensable para resolver el arranque en frío.</td></tr>
+          <tr><td>Grupos de Facebook de la colonia/vecinos</td><td>Demanda</td><td><span class="cost-tag low">Bajo</span></td><td>Es donde ya se publican las solicitudes de oficios hoy — hay que estar presente, no competir desde fuera.</td></tr>
+          <tr><td>Alianzas con ferreterías (sección 07)</td><td>Ambos</td><td><span class="cost-tag low">Bajo</span></td><td>Puntos físicos de confianza y de registro asistido, sin gastar en medios.</td></tr>
+          <tr><td>Administradores de fraccionamientos/condominios</td><td>Demanda</td><td><span class="cost-tag low">Bajo</span></td><td>Un solo contacto puede abrir la puerta a decenas de hogares de una vez.</td></tr>
+          <tr><td>Referidos incentivados (cliente y chambero)</td><td>Ambos</td><td><span class="cost-tag med">Medio</span></td><td>El boca en boca ya es el canal dominante — incentivarlo dentro de la app lo redirige a tu favor.</td></tr>
+          <tr><td>TikTok/Instagram con casos reales (antes/después)</td><td>Demanda</td><td><span class="cost-tag med">Medio</span></td><td>Contenido auténtico, no corporativo, generado con las primeras chambas reales.</td></tr>
+          <tr><td>Google My Business / SEO local</td><td>Demanda</td><td><span class="cost-tag low">Bajo</span></td><td>Captura la búsqueda de quien ya está buscando "plomero Reynosa" hoy mismo.</td></tr>
+          <tr><td>Meta Ads geolocalizados</td><td>Ambos</td><td><span class="cost-tag high">Alto</span></td><td>Útil para acelerar una vez que la oferta-demanda local ya funciona sin ayuda manual — no antes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="generacional">
+    <div class="section-head"><span class="section-num">06</span><h2>Puente generacional: registro asistido por familiares</h2></div>
+    <p class="section-dek">Tu observación es correcta y es aprovechable: la brecha digital en oficios veteranos es real, y resolverla bien puede ser una ventaja que el boca en boca y Facebook no le dan a nadie.</p>
+    <div class="notes-grid">
+      <div class="note blue"><h4>Por qué funciona</h4>
+        <ul>
+          <li>"Kit de bienvenida familiar": instrucciones simples para que un nieto o hijo registre a un familiar en minutos.</li>
+          <li>Registro asistido por WhatsApp o llamada con un agente humano durante los primeros meses — no todos los chamberos van a llegar solos a una pantalla de registro.</li>
+          <li>Combínalo con la alianza de ferreterías (sección 07): el mismo punto físico donde compran insumos puede ser el lugar donde alguien los ayuda a darse de alta.</li>
+        </ul>
+      </div>
+      <div class="note amber"><h4>Qué hay que cuidar</h4>
+        <ul>
+          <li>El perfil, la identidad verificada y el cobro deben quedar a nombre del chambero real, aunque el nieto opere la cuenta en su nombre — importa tanto para la confianza del cliente como para que la verificación (sección 08) tenga sentido.</li>
+          <li>Definir por escrito qué tanto puede hacer un "operador familiar" dentro de la cuenta (¿aceptar chambas? ¿cobrar?) para que no quede ambiguo quién responde si algo sale mal.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ferreterias">
+    <div class="section-head"><span class="section-num">07</span><h2>Alianzas con ferreterías locales</h2></div>
+    <p class="section-dek">Buena idea — y lo mejor es que se puede arrancar sin presupuesto, como trueque de visibilidad.</p>
+    <div class="card">
+      <p style="margin-top:0;font-size:15px;"><b>Mecánica:</b> la ferretería da un descuento (ej. 5–10%) en insumos a chamberos verificados de Chambitas, identificados con su perfil o una credencial en la app. A cambio, Chambitas promueve a esa ferretería como "tienda recomendada" cerca de cada chamba y dentro de la app, y la tienda se vuelve un punto físico de registro asistido (sección 06).</p>
+      <div class="notes-grid">
+        <div class="note green"><h4>Por qué conviene empezar sin dinero de por medio</h4>Es mucho más fácil venderle a una ferretería local "te traigo clientes nuevos y publicidad gratis" que pedirle una comisión a Chambitas en la Fase 1, cuando todavía no hay volumen que la justifique. El descuento también da un beneficio tangible de unirse <b>antes</b> de recibir la primera chamba — ayuda justo al problema del arranque en frío.</div>
+        <div class="note red"><h4>Riesgo a cuidar</h4>No atarse a una sola ferretería por zona: se pierde poder de negociación, y si cierra o cambia de dueño se cae el incentivo de golpe. Recomendado: 2–3 alianzas no exclusivas por zona al inicio; solo evaluar exclusividad si una cadena más grande ofrece algo claramente mejor.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="verificacion">
+    <div class="section-head"><span class="section-num">08</span><h2>Verificación de prestadores (KYC)</h2></div>
+    <p class="section-dek">CURP, INE y comprobante de domicilio son estándar y razonables — así verifican identidad Uber, Didi y Rappi en México. La carta de antecedentes no penales merece una opinión aparte.</p>
+    <div class="card">
+      <table class="scroll-x">
+        <thead><tr><th>Documento</th><th>Qué confirma</th><th>Fricción para obtenerlo</th><th>Cuándo exigirlo</th></tr></thead>
+        <tbody>
+          <tr><td>CURP</td><td>Identidad civil básica</td><td><span class="cost-tag low">Baja</span></td><td>Desde el registro (Fase 1)</td></tr>
+          <tr><td>INE</td><td>Identidad con foto, mayoría de edad</td><td><span class="cost-tag low">Baja</span></td><td>Desde el registro (Fase 1)</td></tr>
+          <tr><td>Comprobante de domicilio</td><td>Zona real de operación</td><td><span class="cost-tag med">Baja-media</span></td><td>Desde el registro (Fase 1)</td></tr>
+          <tr class="highlight"><td>Carta de antecedentes no penales</td><td>Historial legal</td><td><span class="cost-tag high">Media-alta</span></td><td>Ver opinión abajo ↓</td></tr>
+        </tbody>
+      </table>
+
+      <div class="note violet" style="margin-top:20px;">
+        <h4>Mi opinión sobre la carta de antecedentes no penales</h4>
+        <p style="margin:0 0 10px;">Es una buena señal de confianza — probablemente la más fuerte de las cuatro, porque ni el boca en boca ni Facebook le pueden dar eso a un cliente. Pero tiene un costo real que las otras tres no tienen: en México normalmente hay que tramitarla en persona ante la Fiscalía o Secretaría de Seguridad del estado, a veces con costo y con días de espera. Exigirla desde el primer día, justo cuando más necesitas reclutar oferta en frío, puede frenar a los chamberos que menos tiempo o ganas tienen de hacer trámites burocráticos — el riesgo más grande de todo el proyecto según el análisis anterior.</p>
+        <p style="margin:0 0 10px;"><b>Recomendación:</b> en la Fase 1, hazla opcional y prémiala con una insignia visible ("Verificación reforzada ✅") en vez de exigirla a todos. Vuélvela obligatoria en la Fase 2–3, para el Plan Pro, o para categorías de mayor riesgo (entrar a un domicilio sin que el cliente esté presente, servicios con adultos mayores o niños en casa). Considera también subsidiar el costo del trámite para los primeros chamberos reclutados — es una inversión de confianza barata comparada con lo que cuesta reclutar oferta desde cero.</p>
+        <p style="margin:0;">Una nota aparte, importante: CURP, INE y antecedentes penales son datos personales sensibles bajo la ley mexicana de protección de datos. Vas a necesitar un aviso de privacidad y un manejo seguro de esa información desde el primer chambero que registres. No soy abogado — antes de fijar el proceso de verificación, te recomiendo confirmar los requisitos exactos con uno.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="border-bottom:none;">
+    <div class="card" style="background:var(--tinta);color:#fff;">
+      <h3 style="color:#fff;font-size:17px;margin-bottom:14px;">Qué hacer este mes</h3>
+      <div class="checklist">
+        <div class="ci"><div class="box" style="border-color:#fff;"></div>Definir la comisión de Fase 1 y probar el mecanismo de saldo pendiente aunque sea manual (WhatsApp + hoja de cálculo) antes de programarlo.</div>
+        <div class="ci"><div class="box" style="border-color:#fff;"></div>Negociar 2–3 alianzas de descuento con ferreterías locales, sin pedir dinero — solo visibilidad mutua.</div>
+        <div class="ci"><div class="box" style="border-color:#fff;"></div>Diseñar el flujo de registro asistido: kit para familiares + punto de registro en las ferreterías aliadas.</div>
+        <div class="ci"><div class="box" style="border-color:#fff;"></div>Decidir el estatus de la carta de antecedentes no penales para el piloto (opcional con insignia, no obligatoria) y consultar a un abogado sobre el manejo de datos sensibles.</div>
+        <div class="ci"><div class="box" style="border-color:#fff;"></div>Lanzar el posicionamiento "la confianza que antes solo te daba un vecino" en el primer contenido de reclutamiento y redes.</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Continuación del análisis de viabilidad de Chambitas. Las cifras de comisión, suscripción y límites de efectivo son puntos de partida, no precios finales — ajústalos con los datos que vayas obteniendo del piloto. El comentario sobre manejo de datos personales y antecedentes penales es orientativo, no asesoría legal.</p>
+</footer>
+
+<script>
+const fmt = n => new Intl.NumberFormat('es-MX').format(Math.round(n));
+const money = n => '$' + fmt(n);
+
+// ---- 02 Simulador combinado ----
+function updateSim(){
+  const c = +chamberos2.value, pPro = +pctPro.value, cuota = +cuotaPro.value;
+  const comFree = +comisionFree.value, comPro = +comisionPro.value, cp = +chambasPer2.value, t = +ticket2.value;
+
+  vChamb2.textContent = c; vPctPro.textContent = pPro; vCuotaPro.textContent = fmt(cuota);
+  vComFree.textContent = comFree; vComPro.textContent = comPro; vChambasPer2.textContent = cp; vTicket2.textContent = fmt(t);
+
+  const pro = Math.round(c * pPro/100);
+  const free = c - pro;
+
+  const ingFree = free * cp * t * (comFree/100);
+  const ingPro = pro * cp * t * (comPro/100);
+  const ingSub = pro * cuota;
+  const total = ingFree + ingPro + ingSub;
+  const baseline = c * cp * t * (comFree/100);
+  const uplift = total - baseline;
+
+  outSplit.textContent = free + ' / ' + pro;
+  outComFree.textContent = money(ingFree);
+  outComPro.textContent = money(ingPro);
+  outSub.textContent = money(ingSub);
+  outTotalSim.textContent = money(total) + '/mes';
+  outBaseline.textContent = money(baseline) + '/mes';
+  outUplift.textContent = (uplift>=0?'+':'') + money(uplift) + '/mes';
+  outUplift.style.color = uplift>=0 ? 'var(--exito)' : 'var(--rojo)';
+
+  heroRevenue.textContent = fmt(total);
+}
+['chamberos2','pctPro','cuotaPro','comisionFree','comisionPro','chambasPer2','ticket2'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', updateSim);
+});
+updateSim();
+
+// ---- 03 Saldo pendiente en efectivo ----
+function updateCash(){
+  const pctEf = +pctEfectivo.value, t = +ticket3.value, com = +comision3.value, limite = +limiteSaldo.value;
+  vPctEf.textContent = pctEf; vTicket3.textContent = fmt(t); vCom3.textContent = com; vLimite.textContent = fmt(limite);
+
+  const comPorChamba = t * (com/100);
+  const chambasAntes = comPorChamba > 0 ? Math.floor(limite / comPorChamba) : 0;
+
+  outComPorChamba.textContent = money(comPorChamba);
+  outChambasBloqueo.textContent = chambasAntes + ' chambas';
+
+  msgCash.textContent = 'Con ' + pctEf + '% de sus chambas pagadas en efectivo, un chambero típico llega al límite de $' + fmt(limite) + ' después de aproximadamente ' + chambasAntes + ' chambas en efectivo — momento en el que la app le pedirá liquidar antes de seguir recibiendo solicitudes.';
+}
+['pctEfectivo','ticket3','comision3','limiteSaldo'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', updateCash);
+});
+updateCash();
+</script>
+</body>
+</html>
